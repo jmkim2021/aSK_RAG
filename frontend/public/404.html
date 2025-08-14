@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Redirecting…</title>
+    <script>
+      (function () {
+        // GitHub Pages deep-link fallback → redirect to HashRouter URL
+        // Example: /aSK_RAG/search → /aSK_RAG/#/search
+        var repoBase = '/aSK_RAG';
+        var path = window.location.pathname;
+        // Remove the repo base prefix
+        if (path.toLowerCase().indexOf(repoBase.toLowerCase()) === 0) {
+          path = path.slice(repoBase.length);
+        }
+        if (path.length && path[0] === '/') {
+          path = path.slice(1);
+        }
+        var target = window.location.origin + repoBase + '/#/' + path + window.location.search + window.location.hash;
+        window.location.replace(target);
+      })();
+    </script>
+  </head>
+  <body>
+    Redirecting…
+  </body>
+  </html>
+
+

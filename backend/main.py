@@ -21,6 +21,8 @@ from pathlib import Path
 ROOT_DOTENV = Path(__file__).resolve().parents[1] / ".env"
 load_dotenv(dotenv_path=str(ROOT_DOTENV))
 
+from rag import list_all_file_names
+
 # 검색 API용 요청 데이터 모델
 class SearchRequest(BaseModel):
     query: str
@@ -46,7 +48,6 @@ def search_endpoint(req: SearchRequest):
     except Exception as e:
         # 간단한 오류 메시지를 반환해 프론트에서 원인 확인 가능하도록 함
         return {"error": str(e), "query": req.query, "file": req.file_name, "category": req.category}
-# main.py
 
 @app.get("/api/contracts")
 def list_contracts():
@@ -55,9 +56,8 @@ def list_contracts():
     의존성 최소화 및 초보 사용자 환경을 위해 기본적으로 로컬 `backend/data` 디렉터리를 스캔한다.
     (다른 사용자가 .env/Pinecone를 설정하지 않아도 동작)
     """
-    data_dir = os.path.join(os.path.dirname(__file__), "data")
     try:
-        files = [f for f in os.listdir(data_dir) if f.lower().endswith(".pdf")]
+        files = list_all_file_names(category="contract")
     except Exception:
         files = []
     files.sort(key=lambda x: x.lower())
