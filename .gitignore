@@ -6,4 +6,7 @@ backend/venv/
 venv/
 .venv/
 *.log
+backend/.venv/
+**/__pycache__/
+*.pyc
 backend/output/
