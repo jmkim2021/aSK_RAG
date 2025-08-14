@@ -1,0 +1,269 @@
+/* App.css */
+
+/* 전체 앱 레이아웃 */
+.app-container {
+  display: flex;
+  height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  color: #333;
+  background-color: #f8f9fa;
+}
+
+/* --- 사이드바 --- */
+.sidebar {
+  width: 350px;
+  background-color: #ffffff;
+  border-right: 1px solid #dee2e6;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.sidebar-title {
+  font-weight: 700;
+  font-size: 20px;
+  color: #212529;
+}
+
+.history-list {
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+.history-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 8px;
+  margin-bottom: 6px;
+  transition: background-color 0.2s;
+}
+.history-item.selected {
+  background-color: #ffe8cc; /* 주황색 계열 선택 배경 */
+}
+.history-item:hover {
+  background-color: #f1f3f5;
+}
+
+.history-item-checkbox {
+  margin: 0 4px 0 8px;
+  cursor: pointer;
+  accent-color: #ff6b6b; /* 빨간색 계열 체크박스 */
+}
+
+.history-item-button {
+  flex: 1;
+  border: none;
+  background: none;
+  padding: 10px 6px;
+  cursor: pointer;
+  text-align: left;
+  font-weight: 600;
+  color: #495057;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 15px;
+}
+.history-item-button:hover {
+  color: #0056b3;
+}
+
+.icon-button {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 4px;
+  line-height: 1;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+}
+.icon-button:hover {
+  background-color: #e9ecef;
+}
+.bookmark-button {
+  color: #ced4da;
+}
+.bookmark-button.bookmarked {
+  color: #ffc107;
+}
+.delete-button {
+  color: #fa5252; /* 빨간색 삭제 버튼 */
+}
+
+/* --- 메인 콘텐츠 --- */
+.main-content {
+  flex: 1;
+  padding: 2.5rem 3rem;
+  overflow-y: auto;
+  background-color: #f8f9fa;
+}
+
+.main-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+.app-logo {
+  height: 40px;
+}
+
+.app-title {
+  font-size: 28px;
+  font-weight: 800;
+  color: #212529;
+}
+
+.app-subtitle {
+  margin-bottom: 24px;
+  color: #6c757d;
+  font-size: 16px;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid #e9ecef;
+  margin: 24px 0;
+}
+
+/* 입력 폼 */
+.search-form {
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+  margin: 20px 0;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+.form-group label {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #495057;
+}
+.form-group select, .form-group input {
+  padding: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.form-group select:focus, .form-group input:focus {
+  outline: none;
+  border-color: #fd7e14; /* 주황색 포커스 */
+  box-shadow: 0 0 0 3px rgba(253, 126, 20, 0.2);
+}
+.search-input {
+  flex: 1;
+}
+
+.search-button {
+  background: linear-gradient(135deg, #ff8c42, #ff6b6b); /* 주황-빨강 그라데이션 */
+  color: #fff;
+  padding: 10px 25px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  align-self: flex-end;
+}
+.search-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(255, 107, 107, 0.4);
+}
+.search-button:disabled {
+  background: #ced4da;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+.download-button {
+  background: #fff;
+  color: #495057;
+  border: 1px solid #ced4da;
+  padding: 6px 12px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+.download-button:hover {
+  background-color: #495057;
+  color: #fff;
+}
+
+
+/* 답변 표시 */
+.results-section {
+  margin-top: 30px;
+  max-width: 800px;
+}
+.card {
+  background: #ffffff;
+  padding: 24px;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  border: 1px solid #e9ecef;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+.card-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.card-content {
+  white-space: pre-wrap;
+  line-height: 1.7;
+  font-size: 16px;
+}
+.copy-button {
+  margin-left: auto;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  background: #f1f3f5;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.copy-button:hover {
+  background-color: #e9ecef;
+}
+.chunk-list {
+  margin-top: 8px;
+  padding-left: 20px;
+}
+.chunk-list li {
+  margin-bottom: 8px;
+  color: #495057;
+}
+
+/* Placeholder */
+.placeholder-text {
+  color: #adb5bd;
+  margin-top: 40px;
+  text-align: center;
+  font-size: 18px;
+}
