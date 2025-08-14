@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/aSK_RAG/static/css/main.e8678a45.css",
-    "main.js": "/aSK_RAG/static/js/main.296a912b.js",
+    "main.js": "/aSK_RAG/static/js/main.40359bd6.js",
     "static/js/453.670e15c7.chunk.js": "/aSK_RAG/static/js/453.670e15c7.chunk.js",
     "static/media/background.png": "/aSK_RAG/static/media/background.d449f2dac374fe62c63c.png",
     "static/media/logo.png": "/aSK_RAG/static/media/logo.a522da84c040e66a75db.png",
     "index.html": "/aSK_RAG/index.html",
     "main.e8678a45.css.map": "/aSK_RAG/static/css/main.e8678a45.css.map",
-    "main.296a912b.js.map": "/aSK_RAG/static/js/main.296a912b.js.map",
+    "main.40359bd6.js.map": "/aSK_RAG/static/js/main.40359bd6.js.map",
     "453.670e15c7.chunk.js.map": "/aSK_RAG/static/js/453.670e15c7.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e8678a45.css",
-    "static/js/main.296a912b.js"
+    "static/js/main.40359bd6.js"
   ]
 }
