@@ -5,7 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from dotenv import load_dotenv
 
-# rag 모듈은 Pinecone/OpenAI 초기화를 포함하므로 엔드포인트 내부에서 지연 임포트한다.
+from rag import rag_search, rag_search_with_confidence, list_index_file_names, list_all_file_names  # rag.py의 rag_search 함수 사용
 
 app = FastAPI()
 
@@ -20,8 +20,6 @@ app.add_middleware(
 from pathlib import Path
 ROOT_DOTENV = Path(__file__).resolve().parents[1] / ".env"
 load_dotenv(dotenv_path=str(ROOT_DOTENV))
-
-from rag import list_all_file_names
 
 # 검색 API용 요청 데이터 모델
 class SearchRequest(BaseModel):
@@ -48,17 +46,20 @@ def search_endpoint(req: SearchRequest):
     except Exception as e:
         # 간단한 오류 메시지를 반환해 프론트에서 원인 확인 가능하도록 함
         return {"error": str(e), "query": req.query, "file": req.file_name, "category": req.category}
+# main.py
 
 @app.get("/api/contracts")
 def list_contracts():
-    """계약서 파일명 목록을 반환한다.
-
-    의존성 최소화 및 초보 사용자 환경을 위해 기본적으로 로컬 `backend/data` 디렉터리를 스캔한다.
-    (다른 사용자가 .env/Pinecone를 설정하지 않아도 동작)
-    """
-    try:
-        files = list_all_file_names(category="contract")
-    except Exception:
-        files = []
-    files.sort(key=lambda x: x.lower())
+    # Pinecone 인덱스에서 file_name 메타데이터를 수집하여 정렬 반환
+    # 지연 임포트
+    from rag import list_all_file_names
+    files = list_all_file_names(category="contract")
+    if not files:
+        # 폴백: 기존 로컬 data 디렉토리 스캔
+        data_dir = os.path.join(os.path.dirname(__file__), "data")
+        try:
+            files = [f for f in os.listdir(data_dir) if f.endswith(".pdf")]
+        except Exception:
+            files = []
+        files.sort(key=lambda x: x.lower())
     return {"contracts": files}

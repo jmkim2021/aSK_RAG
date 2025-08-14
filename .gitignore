@@ -7,3 +7,5 @@ venv/
 .venv/
 *.log
 backend/output/
+__pycache__/
+*.pyc
