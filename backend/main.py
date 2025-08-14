@@ -5,7 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from dotenv import load_dotenv
 
-from rag import rag_search, rag_search_with_confidence, list_index_file_names, list_all_file_names  # rag.py의 rag_search 함수 사용
+# NOTE: Avoid importing heavy RAG modules at startup. Use lazy, relative imports inside endpoints.
 
 app = FastAPI()
 
@@ -33,8 +33,8 @@ class SearchRequest(BaseModel):
 @app.post("/api/search")
 def search_endpoint(req: SearchRequest):
     try:
-        # 지연 임포트
-        from rag import rag_search
+        # 지연 임포트 (backend 패키지 기준 상대 임포트)
+        from .rag import rag_search
         result = rag_search(
             query=req.query,
             file_name=req.file_name,
@@ -51,9 +51,12 @@ def search_endpoint(req: SearchRequest):
 @app.get("/api/contracts")
 def list_contracts():
     # Pinecone 인덱스에서 file_name 메타데이터를 수집하여 정렬 반환
-    # 지연 임포트
-    from rag import list_all_file_names
-    files = list_all_file_names(category="contract")
+    # 지연 임포트 (backend 패키지 기준 상대 임포트)
+    try:
+        from .rag import list_all_file_names
+        files = list_all_file_names(category="contract")
+    except Exception:
+        files = []
     if not files:
         # 폴백: 기존 로컬 data 디렉토리 스캔
         data_dir = os.path.join(os.path.dirname(__file__), "data")
