@@ -5,6 +5,8 @@ import { saveAs } from 'file-saver';
 import "./SearchPage.css"; // App.css에서 SearchPage.css로 변경되었을 수 있습니다.
 import logo from './assets/logo.png'; 
 
+const API_BASE = process.env.REACT_APP_API_BASE_URL || "http://localhost:8000";
+
 interface ChunkPreview {
   file: string;
   page: number;
@@ -88,7 +90,7 @@ const SearchPage: React.FC = () => {
 
   // 계약서 목록
   useEffect(() => {
-    fetch("http://localhost:8000/api/contracts")
+    fetch(`${API_BASE}/api/contracts`)
       .then((res) => res.json())
       .then((data) => setContracts(["전체 계약서", ...(data.contracts || [])]))
       .catch(() => setContracts(["전체 계약서"]));
@@ -103,7 +105,7 @@ const SearchPage: React.FC = () => {
     setLoading(true);
     setSelectedIndices([]);
     try {
-      const res = await fetch("http://localhost:8000/api/search", {
+      const res = await fetch(`${API_BASE}/api/search`, {
         method: "POST", headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ query: question, file_name: file === "전체 계약서" ? null : file, answer_lang: language }),
       });
