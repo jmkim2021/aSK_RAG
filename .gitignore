@@ -5,7 +5,8 @@ frontend/build/
 backend/venv/
 venv/
 .venv/
+backend/.venv/
 *.log
-backend/output/
-__pycache__/
+**/__pycache__/
 *.pyc
+backend/output/
