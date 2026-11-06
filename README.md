@@ -72,6 +72,4 @@ curl -X POST http://localhost:8000/api/search \
 - 검색 API에서 키나 인덱스 오류가 반환되면 `.env`의 네 변수와 Pinecone에 적재된 인덱스 이름을 확인합니다. 이 저장소에는 인덱스를 새로 만드는 스크립트가 없습니다.
 - 검색 결과가 없거나 인용 페이지가 예상과 다르면 원문 PDF와 인덱스 메타데이터를 함께 확인합니다.
 
-## 문의·라이선스·변경 이력
-
-질문이나 오류는 [GitHub Issues](https://github.com/jmkim2021/aSK_RAG/issues)에 남길 수 있습니다. 이 저장소에는 별도 코드 라이선스가 명시되어 있지 않습니다. 변경 내역은 [커밋 기록](https://github.com/jmkim2021/aSK_RAG/commits/main)에서 확인할 수 있습니다.
+문의: jmkim020315@gmail.com
