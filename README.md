@@ -27,16 +27,27 @@ frontend/src/                  검색 화면
 
 공개 코드는 이미 구축된 Pinecone 인덱스를 조회하는 서비스 부분입니다. 계약서 전처리와 NDCG@k 평가 과정은 위의 프로젝트 기여 내용에 해당하지만, 실행 스크립트는 이 저장소에 없습니다. 계약서 원문이나 법령의 최신성을 이 코드만으로 보장하지 않으므로 답변은 원문과 함께 확인해야 합니다.
 
-## 실행
+## 실행 조건과 설치
 
-Python과 Node.js가 필요합니다. 백엔드는 프로젝트 루트의 `.env`에 OpenAI·Pinecone 설정을 넣고 실행합니다. 실제 키는 저장소에 올리지 않습니다.
+Python과 Node.js가 필요합니다. 이미 계약서가 적재된 Pinecone 인덱스와 OpenAI·Pinecone 자격증명도 필요합니다. 프로젝트 루트에 `.env`를 만들고 아래 변수에 본인의 값을 넣습니다. 실제 키는 저장소에 올리지 않습니다.
+
+```dotenv
+OPENAI_API_KEY=<본인 키>
+PINECONE_API_KEY_KIM=<본인 키>
+PINECONE_INDEX_KIM=<기존 인덱스 이름>
+PINECONE_ENVIRONMENT=<인덱스 환경>
+```
+
+첫 번째 터미널에서 백엔드를 실행합니다.
 
 ```bash
+python -m venv .venv
+source .venv/bin/activate
 pip install -r requirements.txt
 uvicorn backend.main:app --reload
 ```
 
-다른 터미널에서 화면을 실행합니다.
+두 번째 터미널에서 화면을 실행합니다.
 
 ```bash
 cd frontend
@@ -44,4 +55,23 @@ npm ci
 npm start
 ```
 
-[배포된 화면](https://jmkim2021.github.io/aSK_RAG/)
+## 사용 예시
+
+화면에서 계약서를 선택해 질문하거나, API에 직접 질문을 보낼 수 있습니다.
+
+```bash
+curl -X POST http://localhost:8000/api/search \
+  -H 'Content-Type: application/json' \
+  -d '{"query":"계약의 해지 조건은 무엇인가요?","answer_lang":"ko"}'
+```
+
+응답에는 답변과 검색된 청크의 미리보기가 들어 있습니다. [배포된 화면](https://jmkim2021.github.io/aSK_RAG/)에서도 검색 흐름을 볼 수 있습니다.
+
+## 실행 중 문제가 생기면
+
+- 검색 API에서 키나 인덱스 오류가 반환되면 `.env`의 네 변수와 Pinecone에 적재된 인덱스 이름을 확인합니다. 이 저장소에는 인덱스를 새로 만드는 스크립트가 없습니다.
+- 검색 결과가 없거나 인용 페이지가 예상과 다르면 원문 PDF와 인덱스 메타데이터를 함께 확인합니다.
+
+## 문의·라이선스·변경 이력
+
+질문이나 오류는 [GitHub Issues](https://github.com/jmkim2021/aSK_RAG/issues)에 남길 수 있습니다. 이 저장소에는 별도 코드 라이선스가 명시되어 있지 않습니다. 변경 내역은 [커밋 기록](https://github.com/jmkim2021/aSK_RAG/commits/main)에서 확인할 수 있습니다.
